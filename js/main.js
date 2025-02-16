@@ -1,16 +1,23 @@
-document.addEventListener('DOMContentLoaded', () => {
-    fetch('backend/categories.php')
+document.addEventListener("DOMContentLoaded", function() {
+    const productList = document.getElementById("product-list");
+    if (productList) {
+      fetch('backend/products.php')
         .then(response => response.json())
-        .then(data => {
-            const categoryList = document.getElementById('categories');
-            data.forEach(category => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
-                    <img src="assets/images/${category.image_url}" alt="${category.name}">
-                    <h3>${category.name}</h3>
-                `;
-                categoryList.appendChild(card);
-            });
-        });
-});
+        .then(products => {
+          let output = '';
+          products.forEach(product => {
+            output += `
+              <div class="product-card">
+                <img src="assets/images/${product.image}" alt="${product.product_name}">
+                <h3>${product.product_name}</h3>
+                <p>Category: ${product.category}</p>
+                <p>Price: $${parseFloat(product.price).toFixed(2)}</p>
+              </div>
+            `;
+          });
+          productList.innerHTML = output;
+        })
+        .catch(error => console.error('Error fetching products:', error));
+    }
+  });
+  

@@ -1,0 +1,14 @@
+{
+    "name": "cactus-world",
+    "version": "1.0.0",
+    "description": "Cactus World Pet Project built with HTML/CSS/JS, Bootstrap, PHP, and MySQL",
+    "main": "index.js",
+    "scripts": {
+      "start": "live-server"
+    },
+    "dependencies": {},
+    "devDependencies": {},
+    "author": "Your Name",
+    "license": "ISC"
+  }
+  

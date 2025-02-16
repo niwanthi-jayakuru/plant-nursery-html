@@ -1,24 +1,23 @@
 <?php
-// Include the database connection
-include('db.php');
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $name    = trim($_POST['name']);
+    $email   = trim($_POST['email']);
+    $message = trim($_POST['message']);
 
-// Check if form data has been submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Sanitize and capture form inputs
-    $name = $conn->real_escape_string($_POST['name']);
-    $email = $conn->real_escape_string($_POST['email']);
-    $message = $conn->real_escape_string($_POST['message']);
-
-    // Insert into the database
-    $query = "INSERT INTO contact_form (name, email, message) VALUES ('$name', '$email', '$message')";
-
-    if ($conn->query($query) === TRUE) {
-        echo "Message submitted successfully!";
-    } else {
-        echo "Error: " . $query . "<br>" . $conn->error;
+    if (empty($name) || empty($email) || empty($message)) {
+        echo "Please fill in all fields.";
+        exit();
     }
 
-    // Close the connection
-    $conn->close();
+    $to      = "admin@cactusworld.com";
+    $subject = "New Message from Contact Form";
+    $body    = "Name: $name\nEmail: $email\nMessage: $message";
+    $headers = "From: $email";
+
+    if (mail($to, $subject, $body, $headers)) {
+        echo "Thank you for contacting us! We'll get back to you shortly.";
+    } else {
+        echo "There was an error sending your message. Please try again.";
+    }
 }
 ?>

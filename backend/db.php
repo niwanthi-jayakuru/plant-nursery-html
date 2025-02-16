@@ -1,12 +1,12 @@
 <?php
-// Database connection details
-define('DB_SERVER', 'localhost');  // MySQL server
-define('DB_USERNAME', 'root');     // MySQL username
-define('DB_PASSWORD', '');         // MySQL password
-define('DB_NAME', 'cactus_world'); // Your database name
+$servername = "localhost";
+$username = "root";  // Your MySQL username
+$password = "";      // Your MySQL password
+$dbname = "cactus_world";  // Your database name
 
 // Create connection
-$conn = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+$conn = new mysqli($servername, $username, $password, $dbname);
+$conn->set_charset("utf8");
 
 // Check connection
 if ($conn->connect_error) {
